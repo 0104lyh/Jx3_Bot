@@ -1,0 +1,10 @@
+logging:
+  level:
+    love:
+      forte:
+        simbot: debug
+
+simbot:
+  core:
+    # 扫描 simbot-bots目录下的所有 .bot 文件。
+    bot-resource-type: RESOURCE_FIRST

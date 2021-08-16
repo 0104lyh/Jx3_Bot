@@ -1,28 +1,20 @@
 package com.lin.jx3_bot.listener.myprivate;
 
-import catcode.CatCodeUtil;
-import com.alibaba.fastjson.JSON;
 import com.lin.jx3_bot.service.QueryDaily;
 import love.forte.simbot.annotation.Filter;
 import love.forte.simbot.annotation.FilterValue;
 import love.forte.simbot.annotation.OnPrivate;
-import love.forte.simbot.api.message.MessageContent;
-import love.forte.simbot.api.message.MessageContentBuilder;
 import love.forte.simbot.api.message.MessageContentBuilderFactory;
 import love.forte.simbot.api.message.events.PrivateMsg;
 import love.forte.simbot.api.sender.Sender;
 import love.forte.simbot.filter.MatchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class PrivateListener {
     private MessageContentBuilderFactory messageContentBuilderFactory;
-
+    private QueryDaily queryDaily;
     @Autowired
     public void MyPrivateListen(MessageContentBuilderFactory messageContentBuilderFactory) {
         this.messageContentBuilderFactory = messageContentBuilderFactory;
@@ -44,7 +36,7 @@ public class PrivateListener {
     @OnPrivate
     @Filter(value = "日常 {{server}}",trim = true,matchType = MatchType.REGEX_MATCHES)
     public void privateDailyQuery(PrivateMsg privateMsg, Sender sender,@FilterValue("server") String server){
-        sender.sendPrivateMsg(privateMsg, QueryDaily.getDaily(server));
+        sender.sendPrivateMsg(privateMsg, queryDaily.getDaily(server));
     }
 
 }

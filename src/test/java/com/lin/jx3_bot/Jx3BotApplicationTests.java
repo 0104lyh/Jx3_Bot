@@ -1,29 +1,30 @@
 package com.lin.jx3_bot;
 
 import catcode.CatCodeUtil;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.lin.jx3_bot.entily.QueryData;
 import com.lin.jx3_bot.entily.SandData;
 import com.lin.jx3_bot.service.QuerySand;
 import com.lin.jx3_bot.service.RandomSetu;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
+
 
 import java.util.HashMap;
 import java.util.Map;
-
+@RunWith(SpringRunner.class)
 @SpringBootTest
-class Jx3BotApplicationTests {
+public class Jx3BotApplicationTests {
     String url = "https://jx3api.com/app/daily?server={server}";
     String url2 = "https://jx3api.com/app/daily";
     RestTemplate restTemplate=new RestTemplate();
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
         Map<String,String> map = new HashMap();
         map.put("server","双梦");
 
@@ -38,7 +39,7 @@ class Jx3BotApplicationTests {
 //        System.out.println(test);
 //    }
     @Test
-    void Sand(){
+    public void Sand(){
         final CatCodeUtil catUtil = CatCodeUtil.INSTANCE;
         String login = restTemplate.getForObject("https://www.j3sp.com/api/user/login/?account=1062589920@qq.com&password=lyh750802",String.class);
         System.out.println(login);
@@ -54,7 +55,7 @@ class Jx3BotApplicationTests {
     RandomSetu randomSetu;
     QuerySand querySand;
     @Test
-    void setu(){
+    public void setu(){
         final CatCodeUtil catUtil = CatCodeUtil.INSTANCE;
         String urlsetu = "https://api.lolicon.app/setu/v2";
         String jsonString = restTemplate.getForObject(url,String.class);
@@ -65,5 +66,11 @@ class Jx3BotApplicationTests {
         String image = catUtil.toCat("image",true,original);
         System.out.println(image);
     }
-
+//    @Autowired
+//    Jx3spConfig jx3spConfig;
+//    @Test
+//    public void testConfig(){
+//        System.out.println(jx3spConfig.getPassword());
+//        System.out.println(jx3spConfig.getAccount());
+//    }
 }

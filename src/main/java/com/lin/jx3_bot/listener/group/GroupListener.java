@@ -29,6 +29,10 @@ public class GroupListener {
     QuerySand querySand;
     @Autowired
     RandomSetu randomSetu;
+    @Autowired
+    Announce announce;
+    @Autowired
+    RandomSaohua randomSaohua;
     @Depend
     private MessageContentBuilderFactory builderFactory;
     @Autowired
@@ -75,7 +79,16 @@ public class GroupListener {
         sender.sendGroupMsg(groupMsg,msg);
 //        sender.sendGroupMsg(groupMsg, querySand.getSandImage(server));
     }
-
+    @OnGroup
+    @Filter(value = "公告",trim = true,matchType = MatchType.EQUALS)
+    public void GroupQueryAnnounce(GroupMsg groupMsg, Sender sender){
+        sender.sendGroupMsg(groupMsg, announce.getAnnounce());
+    }
+    @OnGroup
+    @Filter(value = "骚话",trim = true,matchType = MatchType.EQUALS)
+    public void GroupGetRandomSaoHua(GroupMsg groupMsg, Sender sender){
+        sender.sendGroupMsg(groupMsg, randomSaohua.getSaohua());
+    }
     @OnGroup
     @Filter(value = "涩图",trim = true,matchType = MatchType.EQUALS)
     public void RandomSetuGet(GroupMsg groupMsg, Sender sender){

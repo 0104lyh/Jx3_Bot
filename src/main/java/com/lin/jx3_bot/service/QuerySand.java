@@ -7,5 +7,6 @@ import org.springframework.stereotype.Service;
 public interface QuerySand {
     String getSandImage(String server);
 
-    public String getSandUrl(String server);
+    @Deprecated
+    public String getSandAPI(String server);
 }

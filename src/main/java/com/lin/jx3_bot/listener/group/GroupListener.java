@@ -92,6 +92,10 @@ public class GroupListener {
     @OnGroup
     @Filter(value = "涩图",trim = true,matchType = MatchType.EQUALS)
     public void RandomSetuGet(GroupMsg groupMsg, Sender sender){
-        sender.sendGroupMsg(groupMsg, randomSetu.getSetu());
+//        sender.sendGroupMsg(groupMsg, randomSetu.getSetu());
+        MessageContentBuilder builder = builderFactory.getMessageContentBuilder();
+        builder.image(randomSetu.getSetu());
+        MessageContent msg = builder.build();
+        sender.sendGroupMsg(groupMsg,msg);
     }
 }

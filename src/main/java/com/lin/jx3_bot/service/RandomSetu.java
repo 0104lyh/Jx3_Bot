@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface RandomSetu {
     String getSetu();
+    String getTargetSetu(String name);
 }

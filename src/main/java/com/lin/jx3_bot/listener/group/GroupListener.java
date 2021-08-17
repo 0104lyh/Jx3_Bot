@@ -104,4 +104,31 @@ public class GroupListener {
         MessageContent msg = builder.build();
         sender.sendGroupMsg(groupMsg,msg);
     }
+    @OnGroup
+    @Filter(value = "来{{num,\\d+}}份涩图",trim = true,matchType = MatchType.REGEX_MATCHES)
+    public void randomSetuGetFireOpen(GroupMsg groupMsg, Sender sender,@FilterValue("num") int number){
+        if(number<=10){
+            for(int i=0;i<number;i++){
+                MessageContentBuilder builder = builderFactory.getMessageContentBuilder();
+                builder.image(randomSetu.getSetu());
+                MessageContent msg = builder.build();
+                sender.sendGroupMsg(groupMsg,msg);
+            }
+        }else {
+            sender.sendGroupMsg(groupMsg,"请节制");
+        }
+    }
+    @OnGroup
+    @Filter(value = "涩图 {{name}}",trim = true,matchType = MatchType.REGEX_MATCHES)
+    public void targetSetuGet(GroupMsg groupMsg, Sender sender,@FilterValue("name") String name){
+        MessageContentBuilder builder = builderFactory.getMessageContentBuilder();
+        String image = randomSetu.getTargetSetu(name);
+        if(image.equals("找不到你要的涩图")){
+            sender.sendGroupMsg(groupMsg,image);
+        }else{
+            builder.image(randomSetu.getTargetSetu(name));
+            MessageContent msg = builder.build();
+            sender.sendGroupMsg(groupMsg,msg);
+        }
+    }
 }

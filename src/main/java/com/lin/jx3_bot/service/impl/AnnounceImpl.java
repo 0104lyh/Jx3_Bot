@@ -10,13 +10,16 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+/**
+ * @author linyanhao
+ */
 @Service
 public class AnnounceImpl implements Announce {
 
-    private String url = "https://jx3api.com/app/announce";
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplate();
     @Override
     public String getAnnounce() {
+        String url = "https://jx3api.com/app/announce";
         AnnounceData announceData = restTemplate.getForObject(url,AnnounceData.class);
         if(announceData.getCode()==200){
             List<JSONObject> dataList = announceData.getData();

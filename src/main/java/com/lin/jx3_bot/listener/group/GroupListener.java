@@ -42,37 +42,37 @@ public class GroupListener {
 
     @OnGroup
     @Filter(value = "日常 {{server}}",trim = true,matchType = MatchType.REGEX_MATCHES)
-    public void GroupDailyQueryOnServer(GroupMsg groupMsg, Sender sender, @FilterValue("server") String server){
+    public void groupDailyQueryOnServer(GroupMsg groupMsg, Sender sender, @FilterValue("server") String server){
         sender.sendGroupMsg(groupMsg, queryDaily.getDaily(server));
     }
     @OnGroup
     @Filter(value = "日常",trim = true,matchType = MatchType.EQUALS)
-    public void GroupDailyQuery(GroupMsg groupMsg, Sender sender){
+    public void groupDailyQuery(GroupMsg groupMsg, Sender sender){
         String server = "梦江南";
         sender.sendGroupMsg(groupMsg, queryDaily.getDaily(server));
     }
 
     @OnGroup
     @Filter(value = "金价 {{server}}",trim = true,matchType = MatchType.REGEX_MATCHES)
-    public void GroupGoldQuery(GroupMsg groupMsg, Sender sender, @FilterValue("server") String server){
+    public void groupGoldQuery(GroupMsg groupMsg, Sender sender, @FilterValue("server") String server){
         sender.sendGroupMsg(groupMsg, queryGold.getGold(server));
     }
 
     @OnGroup
     @Filter(value = "花价 {{flower}}",trim = true,matchType = MatchType.REGEX_MATCHES)
-    public void GroupFlowerQuery(GroupMsg groupMsg, Sender sender, @FilterValue("flower") String flower){
+    public void groupFlowerQuery(GroupMsg groupMsg, Sender sender, @FilterValue("flower") String flower){
         //默认双梦
         String server="梦江南";
         sender.sendGroupMsg(groupMsg, queryFlowerPrice.getFlowerPrice(flower,server));
     }
     @OnGroup
     @Filter(value = "{{server}} 花价 {{flower}}",trim = true,matchType = MatchType.REGEX_MATCHES)
-    public void GroupFlowerQueryOnserver(GroupMsg groupMsg, Sender sender, @FilterValue("flower") String flower,@FilterValue("server") String server){
+    public void groupFlowerQueryOnserver(GroupMsg groupMsg, Sender sender, @FilterValue("flower") String flower, @FilterValue("server") String server){
         sender.sendGroupMsg(groupMsg, queryFlowerPrice.getFlowerPrice(flower,server));
     }
     @OnGroup
     @Filter(value = "沙盘 {{server}}",trim = true,matchType = MatchType.REGEX_MATCHES)
-    public void SandQueryOnGroup(GroupMsg groupMsg, Sender sender, @FilterValue("server") String server){
+    public void sandQueryOnGroup(GroupMsg groupMsg, Sender sender, @FilterValue("server") String server){
         MessageContentBuilder builder = builderFactory.getMessageContentBuilder();
         builder.image(querySand.getSandImage(server));
         MessageContent msg = builder.build();
@@ -81,18 +81,17 @@ public class GroupListener {
     }
     @OnGroup
     @Filter(value = "公告",trim = true,matchType = MatchType.EQUALS)
-    public void GroupQueryAnnounce(GroupMsg groupMsg, Sender sender){
+    public void groupQueryAnnounce(GroupMsg groupMsg, Sender sender){
         sender.sendGroupMsg(groupMsg, announce.getAnnounce());
     }
     @OnGroup
     @Filter(value = "骚话",trim = true,matchType = MatchType.EQUALS)
-    public void GroupGetRandomSaoHua(GroupMsg groupMsg, Sender sender){
+    public void groupGetRandomSaoHua(GroupMsg groupMsg, Sender sender){
         sender.sendGroupMsg(groupMsg, randomSaohua.getSaohua());
     }
     @OnGroup
     @Filter(value = "涩图",trim = true,matchType = MatchType.EQUALS)
-    public void RandomSetuGet(GroupMsg groupMsg, Sender sender){
-//        sender.sendGroupMsg(groupMsg, randomSetu.getSetu());
+    public void randomSetuGet(GroupMsg groupMsg, Sender sender){
         MessageContentBuilder builder = builderFactory.getMessageContentBuilder();
         builder.image(randomSetu.getSetu());
         MessageContent msg = builder.build();

@@ -11,19 +11,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
+/**
+ * @author linyanhao
+ */
 @Service
 public class QueryFlowerPriceImpl implements QueryFlowerPrice {
     static private final String url = "https://jx3api.com/app/flower?server={server}&flower={flower}&map={map}";
     @Autowired
     private static RestTemplate restTemplate= new RestTemplate();
-    public String getFlowerPrice(String flower,String server){
+    @Override
+    public String getFlowerPrice(String flower, String server){
         Map<String,String> map = new HashMap<>();
         map.put("server",server);
         map.put("flower",flower);
         map.put("map","广陵邑");
         QueryFlower queryFlower = restTemplate.getForObject(url,QueryFlower.class,map);
-//        QueryData queryData = restTemplate.getForObject(url,QueryData.class,map);
-//        JSONObject data = queryData.getData();
         if (queryFlower.getCode()==200){
             String result="";
             List<Flower> dataList = queryFlower.getData();

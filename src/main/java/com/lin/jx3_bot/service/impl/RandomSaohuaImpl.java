@@ -6,12 +6,15 @@ import com.lin.jx3_bot.service.RandomSaohua;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * @author linyanhao
+ */
 @Service
 public class RandomSaohuaImpl implements RandomSaohua {
-    private String url = "https://jx3api.com/app/random";
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplate();
     @Override
     public String getSaohua() {
+        String url = "https://jx3api.com/app/random";
         QueryData queryData = restTemplate.getForObject(url,QueryData.class);
         if(queryData.getCode()==200){
             JSONObject data = queryData.getData();

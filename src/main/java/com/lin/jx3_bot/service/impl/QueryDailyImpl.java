@@ -11,26 +11,27 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author linyanhao
+ */
 @Service
 public class QueryDailyImpl implements QueryDaily {
     /**
      * 日常查询，格式:日常 {server} server为服务器名
      */
-    static final private String url = "https://jx3api.com/app/daily?server={server}";
+    static final private String URL = "https://jx3api.com/app/daily?server={server}";
     @Autowired
-    private static RestTemplate restTemplate=new RestTemplate();
+    private static final RestTemplate restTemplate=new RestTemplate();
 
     public static JSONObject getDailyJson(){
         Map<String,String> map = new HashMap<>();
         map.put("server","梦江南");
-        String dailyString = restTemplate.getForObject(url,String.class,map);
-        JSONObject dailyJson = JSONObject.parseObject(dailyString);
-        return dailyJson;
+        String dailyString = restTemplate.getForObject(URL,String.class,map);
+        return JSONObject.parseObject(dailyString);
     }
 
     public static String getDailyString(){
         JSONObject dailyJson = QueryDailyImpl.getDailyJson();
-//        JSONObject data = JSONObject.parseObject(dailyJson.getString("data"));
         Integer code = dailyJson.getInteger("code");
         if (code==200){
             String data = dailyJson.getString("data");
@@ -45,7 +46,7 @@ public class QueryDailyImpl implements QueryDaily {
     public String getDaily(String server){
         Map<String,String> map = new HashMap<>();
         map.put("server",server);
-        QueryData queryData = restTemplate.getForObject(url,QueryData.class,map);
+        QueryData queryData = restTemplate.getForObject(URL,QueryData.class,map);
         if(queryData.getCode()==200){
             String dayWar = "【大战】:"+queryData.getData().getString("DayWar")+"\n";
             String dayBattle = "【战场】:" + queryData.getData().getString("DayBattle") + "\n";

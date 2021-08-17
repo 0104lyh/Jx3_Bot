@@ -24,11 +24,10 @@ public class QuerySandImpl implements QuerySand {
         QuerySandImpl.password=password;
     }
 
-    final private String url = "https://www.j3sp.com/api/sand/?serverName={server}&token={token}";
-    final private String jx3APIurl = "https://jx3api.com/app/sand?server={server}";
     RestTemplate restTemplate = new RestTemplate();
     final CatCodeUtil catUtil = CatCodeUtil.INSTANCE;
 
+    @Override
     public String getSandImage(String server){
         Map<String,String> map = new HashMap<>();
         map.put("server",server);
@@ -39,12 +38,12 @@ public class QuerySandImpl implements QuerySand {
         JSONObject userinfo = data.getJSONObject("userinfo");
         String token = userinfo.getString("token");
         map.put("token",token);
+        String url = "https://www.j3sp.com/api/sand/?serverName={server}&token={token}";
         SandData sandData = restTemplate.getForObject(url,SandData.class,map);
         if(sandData.getCode()==1){
             JSONObject sand_data = sandData.getData().getJSONObject("sand_data");
-            String image = sand_data.getString("sandImage");
 
-            return image;
+            return sand_data.getString("sandImage");
         }else{
             return "获取失败";
         }
@@ -54,6 +53,7 @@ public class QuerySandImpl implements QuerySand {
     public String getSandAPI(String server) {
         Map<String,String> map = new HashMap<>();
         map.put("server",server);
+        String jx3APIurl = "https://jx3api.com/app/sand?server={server}";
         QueryData queryData = restTemplate.getForObject(jx3APIurl,QueryData.class,map);
         if(queryData.getCode()==200){
             String image = queryData.getData().getString("url");

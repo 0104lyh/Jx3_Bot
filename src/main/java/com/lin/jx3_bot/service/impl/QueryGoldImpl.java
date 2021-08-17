@@ -9,12 +9,16 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author linyanhao
+ */
 @Service
 public class QueryGoldImpl implements QueryGold {
     static final private String url = "https://jx3api.com/app/gold?server={server}";
     @Autowired
-    private static RestTemplate restTemplate=new RestTemplate();
+    private static final RestTemplate restTemplate=new RestTemplate();
 
+    @Override
     public String getGold(String server){
         Map<String,String> map = new HashMap<>();
         map.put("server",server);

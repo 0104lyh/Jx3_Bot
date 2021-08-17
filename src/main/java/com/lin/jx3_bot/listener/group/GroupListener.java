@@ -33,6 +33,8 @@ public class GroupListener {
     private Announce announce;
     @Autowired
     private RandomSaohua randomSaohua;
+    @Autowired
+    private QueryMacro queryMacro;
     @Depend
     private MessageContentBuilderFactory builderFactory;
     @Autowired
@@ -88,6 +90,11 @@ public class GroupListener {
     @Filter(value = "骚话",trim = true,matchType = MatchType.EQUALS)
     public void groupGetRandomSaoHua(GroupMsg groupMsg, Sender sender){
         sender.sendGroupMsg(groupMsg, randomSaohua.getSaohua());
+    }
+    @OnGroup
+    @Filter(value = "宏 {{name}}",trim = true,matchType = MatchType.REGEX_MATCHES)
+    public void groupDailyQuery(GroupMsg groupMsg, Sender sender,@FilterValue("name") String name){
+        sender.sendGroupMsg(groupMsg, queryMacro.getMacro(name));
     }
     @OnGroup
     @Filter(value = "涩图",trim = true,matchType = MatchType.EQUALS)

@@ -18,8 +18,7 @@ public class RandomSaohuaImpl implements RandomSaohua {
         QueryData queryData = restTemplate.getForObject(url,QueryData.class);
         if(queryData.getCode()==200){
             JSONObject data = queryData.getData();
-            String saoHua = data.getString("text");
-            return saoHua;
+            return data.getString("text");
         }else {
             return "骚不出来了";
         }

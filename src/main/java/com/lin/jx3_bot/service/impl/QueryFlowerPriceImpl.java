@@ -27,7 +27,7 @@ public class QueryFlowerPriceImpl implements QueryFlowerPrice {
         map.put("map","广陵邑");
         QueryFlower queryFlower = restTemplate.getForObject(url,QueryFlower.class,map);
         if (queryFlower.getCode()==200){
-            String result="";
+            StringBuilder result= new StringBuilder();
             List<Flower> dataList = queryFlower.getData();
             for(int i=0;i<dataList.size();i++){
                 Flower flowerData = dataList.get(i);
@@ -35,9 +35,9 @@ public class QueryFlowerPriceImpl implements QueryFlowerPrice {
                 String flowerColor = "颜色:"+flowerData.getColor()+"\n";
                 String flowerPrice = "倍率"+flowerData.getPrice()+"\n";
                 String line = "线路:"+Arrays.toString(flowerData.getLine())+"\n";
-                result+=flowerName+flowerColor+flowerPrice+line+"————————————————\n";
+                result.append(flowerName).append(flowerColor).append(flowerPrice).append(line).append("————————————————\n");
             }
-            return result;
+            return result.toString();
         }else {
             return "无数据";
         }

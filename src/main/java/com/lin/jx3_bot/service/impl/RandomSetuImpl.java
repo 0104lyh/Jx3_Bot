@@ -24,7 +24,6 @@ public class RandomSetuImpl implements RandomSetu {
         assert getJson != null;
         JSONArray data = getJson.getJSONArray("data");
         JSONObject urls = data.getJSONObject(0).getJSONObject("urls");
-        String original = urls.getString("original");
-        return original;
+        return urls.getString("original");
     }
 }

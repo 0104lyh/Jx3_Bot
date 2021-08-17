@@ -56,8 +56,7 @@ public class QuerySandImpl implements QuerySand {
         String jx3APIurl = "https://jx3api.com/app/sand?server={server}";
         QueryData queryData = restTemplate.getForObject(jx3APIurl,QueryData.class,map);
         if(queryData.getCode()==200){
-            String image = queryData.getData().getString("url");
-            return image;
+            return queryData.getData().getString("url");
         }else {
             return "失败";
         }

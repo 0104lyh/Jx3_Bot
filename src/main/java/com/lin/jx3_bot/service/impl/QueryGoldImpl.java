@@ -29,8 +29,7 @@ public class QueryGoldImpl implements QueryGold {
             String dd373 = "dd373:" +queryData.getData().getString("dd373")+"\n";
             String price5173 = "5173:" +queryData.getData().getString("5173")+"\n";
             String price7881 = "7881:" +queryData.getData().getString("7881")+"\n";
-            String goldString = wanBaoLou+uu898+dd373+price5173+price7881;
-            return goldString;
+            return wanBaoLou+uu898+dd373+price5173+price7881;
         }else{
             return "查询失败";
         }

@@ -26,8 +26,7 @@ public class AnnounceImpl implements Announce {
             JSONObject data = dataList.get(0);
             String title = "【标题】"+ data.getString("title")+"\n";
             String announceUrl = "【连接】"+data.getString("url")+"\n";
-            String result = title+announceUrl;
-            return result;
+            return title+announceUrl;
         }else {
             return "连接失败";
         }

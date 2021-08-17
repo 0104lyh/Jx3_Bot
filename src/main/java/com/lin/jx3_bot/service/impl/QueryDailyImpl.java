@@ -23,13 +23,14 @@ public class QueryDailyImpl implements QueryDaily {
     @Autowired
     private static final RestTemplate restTemplate=new RestTemplate();
 
+    @Deprecated
     public static JSONObject getDailyJson(){
         Map<String,String> map = new HashMap<>();
         map.put("server","梦江南");
         String dailyString = restTemplate.getForObject(URL,String.class,map);
         return JSONObject.parseObject(dailyString);
     }
-
+    @Deprecated
     public static String getDailyString(){
         JSONObject dailyJson = QueryDailyImpl.getDailyJson();
         Integer code = dailyJson.getInteger("code");

@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -58,13 +59,11 @@ public class Jx3BotApplicationTests {
     public void setu(){
         final CatCodeUtil catUtil = CatCodeUtil.INSTANCE;
         String urlsetu = "https://api.lolicon.app/setu/v2";
-        String jsonString = restTemplate.getForObject(url,String.class);
-        JSONObject setuJson = JSONObject.parseObject(jsonString);
-        JSONArray data = setuJson.getJSONArray("data");
-        JSONObject urls = data.getObject(0,JSONObject.class);
-        JSONObject original = urls.getJSONObject("original");
-        String image = catUtil.toCat("image",true,original);
-        System.out.println(image);
+        JSONObject getJson = restTemplate.getForObject(urlsetu,JSONObject.class);
+        JSONArray data = getJson.getJSONArray("data");
+        JSONObject urls = data.getJSONObject(0).getJSONObject("urls");
+        String original = urls.getString("original");
+        System.out.println(original);
     }
 //    @Autowired
 //    Jx3spConfig jx3spConfig;

@@ -20,19 +20,19 @@ public class GroupListener {
      * qq群消息监听
      */
     @Autowired
-    QueryDaily queryDaily;
+    private QueryDaily queryDaily;
     @Autowired
-    QueryGold queryGold;
+    private QueryGold queryGold;
     @Autowired
-    QueryFlowerPrice queryFlowerPrice;
+    private QueryFlowerPrice queryFlowerPrice;
     @Autowired
-    QuerySand querySand;
+    private QuerySand querySand;
     @Autowired
-    RandomSetu randomSetu;
+    private RandomSetu randomSetu;
     @Autowired
-    Announce announce;
+    private Announce announce;
     @Autowired
-    RandomSaohua randomSaohua;
+    private RandomSaohua randomSaohua;
     @Depend
     private MessageContentBuilderFactory builderFactory;
     @Autowired

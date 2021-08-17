@@ -16,16 +16,9 @@ public class RandomSetuImpl implements RandomSetu {
     final private String url = "https://api.lolicon.app/setu/v2";
     @Override
     public String getSetu() {
-//        String jsonString = restTemplate.getForObject(url,String.class);
-//        JSONObject setuJson = JSONObject.parseObject(jsonString);
-//        JSONArray data = setuJson.getJSONArray("data");
-//        JSONObject urls = data.getObject(0,JSONObject.class);
-//        JSONObject original = urls.getJSONObject("original");
-//        String image = catUtil.toCat("image",true,original);
-//        String image = catUtil.toCat("image",true);
-        List<JSONObject> getJson = restTemplate.getForObject(url,List.class);
-        JSONObject data = getJson.get(0);
-        JSONObject urls = data.getJSONObject("urls");
+        JSONObject getJson = restTemplate.getForObject(url,JSONObject.class);
+        JSONArray data = getJson.getJSONArray("data");
+        JSONObject urls = data.getJSONObject(0).getJSONObject("urls");
         String original = urls.getString("original");
         return original;
     }

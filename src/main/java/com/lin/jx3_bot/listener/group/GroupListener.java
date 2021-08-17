@@ -93,6 +93,7 @@ public class GroupListener {
     }
     @OnGroup
     @Filter(value = "宏 {{name}}",trim = true,matchType = MatchType.REGEX_MATCHES)
+    @Filter(value = "{{name}} 宏",trim = true,matchType = MatchType.REGEX_MATCHES)
     public void groupDailyQuery(GroupMsg groupMsg, Sender sender,@FilterValue("name") String name){
         sender.sendGroupMsg(groupMsg, queryMacro.getMacro(name));
     }

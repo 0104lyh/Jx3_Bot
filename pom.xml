@@ -13,6 +13,7 @@
     <artifactId>Jx3_Bot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Jx3_Bot</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -90,6 +91,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.lin.jx3_bot.Jx3BotApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

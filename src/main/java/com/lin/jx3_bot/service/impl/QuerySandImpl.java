@@ -25,7 +25,6 @@ public class QuerySandImpl implements QuerySand {
     }
 
     RestTemplate restTemplate = new RestTemplate();
-    final CatCodeUtil catUtil = CatCodeUtil.INSTANCE;
 
     @Override
     public String getSandImage(String server){

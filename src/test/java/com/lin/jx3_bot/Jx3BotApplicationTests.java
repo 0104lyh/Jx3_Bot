@@ -17,7 +17,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class Jx3BotApplicationTests {
     String url = "https://jx3api.com/app/daily?server={server}";

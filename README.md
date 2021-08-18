@@ -7,4 +7,13 @@
 
 ## 参考
 > https://gitee.com/yqingfeng/jx3robot
+> 
+> https://gitee.com/LSE_QX/lse-qbot
 
+## 配置机器人
+> yml文件中添加jx3sp的账号和密码，使用jx3sp需要登录账号
+> 
+> resources/simbot-bots/下的文件填入qq账号
+## 目前已有功能
+> 查询日常、金价、花价、沙盘、随机骚话、官方公告、随机瑟图
+## TODO

@@ -35,8 +35,11 @@ public class GroupListener {
     private RandomSaohua randomSaohua;
     @Autowired
     private QueryMacro queryMacro;
+    @Autowired
+    private QueryHoles queryHoles;
     @Depend
     private MessageContentBuilderFactory builderFactory;
+
     @Autowired
     public GroupListener(MessageContentBuilderFactory builderFactory) {
         this.builderFactory = builderFactory;
@@ -79,7 +82,6 @@ public class GroupListener {
         builder.image(querySand.getSandImage(server));
         MessageContent msg = builder.build();
         sender.sendGroupMsg(groupMsg,msg);
-//        sender.sendGroupMsg(groupMsg, querySand.getSandImage(server));
     }
     @OnGroup
     @Filter(value = "公告",trim = true,matchType = MatchType.EQUALS)
@@ -97,6 +99,15 @@ public class GroupListener {
     public void groupDailyQuery(GroupMsg groupMsg, Sender sender,@FilterValue("name") String name){
         sender.sendGroupMsg(groupMsg, queryMacro.getMacro(name));
     }
+    @OnGroup
+    @Filter(value = "奇穴 {{name}}",trim = true,matchType = MatchType.REGEX_MATCHES)
+    public void groupGetHoles(GroupMsg groupMsg, Sender sender, @FilterValue("name") String name){
+        sender.sendGroupMsg(groupMsg, queryHoles.getHoles(name));
+    }
+    /**
+     * 发送瑟图及其衍生功能，通过随机色图api
+     *
+     */
     @OnGroup
     @Filter(value = "涩图",trim = true,matchType = MatchType.EQUALS)
     public void randomSetuGet(GroupMsg groupMsg, Sender sender){

@@ -19,7 +19,7 @@ simbot:
     bot-resource-type: RESOURCE_FIRST
   component:
     mirai:
-      device-info-file: ./device-info/device.json
+      device-info-file: file:./device-info/device.json
 jx3sp:
   account: 1062589920@qq.com
   password: lyh750802

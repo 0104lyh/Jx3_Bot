@@ -4,6 +4,8 @@ import catcode.CatCodeUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lin.jx3_bot.service.RandomSetu;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,6 +29,7 @@ public class RandomSetuImpl implements RandomSetu {
         assert getJson != null;
         JSONArray data = getJson.getJSONArray("data");
         JSONObject urls = data.getJSONObject(0).getJSONObject("urls");
+        Logger logger = LoggerFactory.getLogger(RandomSetuImpl.class);
         return urls.getString("original");
     }
 

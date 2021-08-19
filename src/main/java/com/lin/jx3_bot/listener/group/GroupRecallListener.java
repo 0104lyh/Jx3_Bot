@@ -1,6 +1,7 @@
 package com.lin.jx3_bot.listener.group;
 
 import love.forte.common.ioc.annotation.Beans;
+import love.forte.simbot.annotation.OnGroup;
 import love.forte.simbot.annotation.OnGroupMsgRecall;
 import love.forte.simbot.api.message.assists.Flag;
 import love.forte.simbot.api.message.events.GroupMsg;
@@ -19,11 +20,18 @@ import java.util.Objects;
  */
 @Service
 public class GroupRecallListener {
-    @OnGroupMsgRecall
-    public void getRecallMessage(GroupMsgRecall groupMsgRecall,Sender sender,Flag flag){
-
-        String info = "id:"+groupMsgRecall.getId()+"\n"+"text:"+groupMsgRecall.getText()+"\n"+"msg:"+groupMsgRecall.getMsg()
-                +"type:"+groupMsgRecall.getGroupRecallType()+"\n"+"OriginalData："+groupMsgRecall.getOriginalData();
-//        sender.sendGroupMsg(groupMsgRecall, info);
+    @OnGroup
+    public void getInfo(GroupMsg groupMsg,Sender sender){
+        if(groupMsg.getId().contains("REC-")){
+            groupMsg.getId().replace("REC-", "");
+            sender.sendGroupMsg(groupMsg, groupMsg.getMsgContent().getMsg());
+        }
+//        String info = groupMsg.getId();
     }
+//    @OnGroupMsgRecall
+//    public void getRecallMessage(GroupMsgRecall groupMsgRecall,Sender sender){
+//        String info = groupMsgRecall.getId().replace("REC-", "");
+//        sender.sendGroupMsg(groupMsgRecall, info);
+//    }
+
 }

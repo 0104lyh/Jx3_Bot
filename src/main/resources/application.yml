@@ -3,7 +3,6 @@ logging:
     love:
       forte:
         simbot: debug
-
 # h2数据库的网页控制台 localhost:8080/h2-console
 spring:
   datasource:
@@ -18,6 +17,9 @@ simbot:
   core:
     # 扫描 simbot-bots目录下的所有 .bot 文件。
     bot-resource-type: RESOURCE_FIRST
+  component:
+    mirai:
+      device-info-file: ./device-info/device.json
 jx3sp:
   account: 1062589920@qq.com
   password: lyh750802

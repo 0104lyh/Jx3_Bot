@@ -87,7 +87,6 @@ public class Jx3ApiWebSocket {
      * @OnError
      */
      public void onError(Session session, Throwable error) {
-//         System.out.println("发生错误");
          logger.error("发生错误");
          error.printStackTrace();
      }

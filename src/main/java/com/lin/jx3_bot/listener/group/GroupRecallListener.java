@@ -41,7 +41,7 @@ public class GroupRecallListener {
             Integer group = Integer.parseInt(groupMsg.getGroupInfo().getGroupCode());
             String message = groupMsg.getMsg();
             mapper.insertMessage(id, group,member,message);
-            log.info("insert success");
+//            log.info("insert success");
         }
     }
     @OnGroupMsgRecall

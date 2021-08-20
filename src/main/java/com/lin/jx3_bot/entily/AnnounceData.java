@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
 import java.util.List;
+/**
+ * @author linyanhao
+ */
 @Data
 public class AnnounceData {
     private Integer code;

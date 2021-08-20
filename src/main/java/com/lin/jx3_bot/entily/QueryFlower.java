@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author linyanhao
+ */
 @Data
 public class QueryFlower {
     private Integer code;

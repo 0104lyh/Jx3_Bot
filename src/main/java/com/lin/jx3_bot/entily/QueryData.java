@@ -3,6 +3,9 @@ package com.lin.jx3_bot.entily;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
+/**
+ * @author linyanhao
+ */
 @Data
 public class QueryData {
     private Integer code;

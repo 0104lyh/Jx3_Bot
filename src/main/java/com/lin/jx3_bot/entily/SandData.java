@@ -6,6 +6,9 @@ import lombok.Data;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author linyanhao
+ */
 @Data
 public class SandData {
     private Integer code;

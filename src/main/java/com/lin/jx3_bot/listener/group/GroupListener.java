@@ -1,6 +1,10 @@
 package com.lin.jx3_bot.listener.group;
 
 import catcode.CatCodeUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.lin.jx3_bot.entily.QueryData;
+import com.lin.jx3_bot.mapper.ServerMapper;
+import com.lin.jx3_bot.model.GroupServerInfo;
 import com.lin.jx3_bot.service.*;
 import love.forte.common.ioc.annotation.Depend;
 import love.forte.simbot.annotation.Filter;
@@ -14,6 +18,10 @@ import love.forte.simbot.api.sender.Sender;
 import love.forte.simbot.filter.MatchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class GroupListener {
@@ -42,6 +50,10 @@ public class GroupListener {
     private QueryNews queryNews;
     @Autowired
     private CheckServerStatus  checkServerStatus;
+    @Autowired
+    private GroupSetServer groupSetServer;
+    @Autowired
+    private ServerMapper serverMapper;
     private final CatCodeUtil catUtil = CatCodeUtil.INSTANCE;
     @Depend
     private MessageContentBuilderFactory builderFactory;
@@ -55,12 +67,30 @@ public class GroupListener {
     public void groupDailyQueryOnServer(GroupMsg groupMsg, Sender sender, @FilterValue("server") String server){
         sender.sendGroupMsg(groupMsg, queryDaily.getDaily(server));
     }
-
+    @OnGroup
+    @Filter(value = "设置服务器 {{name}}",trim = true,matchType = MatchType.REGEX_MATCHES)
+    public void setServer(GroupMsg groupMsg,Sender sender,@FilterValue("name") String name){
+//        List<String> idList = Arrays.asList(groupMsg.getId().split("\\."));
+        Integer code = Integer.valueOf(groupMsg.getGroupInfo().getGroupCode());
+        int flag = groupSetServer.setServer(name,code);
+        if(flag==1){
+            sender.sendGroupMsg(groupMsg, "设置成功");
+        }else{
+            sender.sendGroupMsg(groupMsg, "设置失败");
+        }
+    }
     @OnGroup
     @Filter(value = "日常",trim = true,matchType = MatchType.EQUALS)
     public void groupDailyQuery(GroupMsg groupMsg, Sender sender){
-        String server = "梦江南";
-        sender.sendGroupMsg(groupMsg, queryDaily.getDaily(server));
+        GroupServerInfo info = serverMapper.getServerInfo(Integer.valueOf(groupMsg.getGroupInfo().getGroupCode()));
+        if(info==null){
+            String server = "梦江南";
+            sender.sendGroupMsg(groupMsg, queryDaily.getDaily(server)+"\n"+"-----------------------------\n"
+                    +"该群没有绑定服务器，默认返回梦江南\n"+"请使用命令：设置服务器 {}绑定服务器");
+        }else{
+            String server = info.getServer();
+            sender.sendGroupMsg(groupMsg, queryDaily.getDaily(server));
+        }
     }
     @OnGroup
     @Filter(value = "开服 {{server}}",trim = true,matchType = MatchType.REGEX_MATCHES)
@@ -90,7 +120,6 @@ public class GroupListener {
     public void sandQueryOnGroup(GroupMsg groupMsg, Sender sender, @FilterValue("server") String server){
         String image = catUtil.toCat("image",true,"url="+querySand.getSandImage(server));
         sender.sendGroupMsg(groupMsg, image);
-
     }
     @OnGroup
     @Filter(value = "公告",trim = true,matchType = MatchType.EQUALS)

@@ -9,3 +9,12 @@ create table GROUP_MESSAGE
         primary key (ID)
 );
 
+create table GROUP_SERVER
+(
+    GROUP_CODE INT     not null,
+    SERVER     VARCHAR not null,
+    REGION     VARCHAR
+);
+
+
+

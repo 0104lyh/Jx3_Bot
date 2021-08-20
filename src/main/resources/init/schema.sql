@@ -1,6 +1,11 @@
-CREATE TABLE message(
-                      id char(20) not null primary key,
-                      code char(20),
-                      message char(20),
-                      age INTEGER
+-- auto-generated definition
+create table GROUP_MESSAGE
+(
+    ID           LONG auto_increment,
+    GROUP_CODE   INT not null,
+    GROUP_MEMBER INT not null,
+    MESSAGE      VARCHAR,
+    constraint GROUP_MESSAGE_PK
+        primary key (ID)
 );
+

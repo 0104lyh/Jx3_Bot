@@ -7,7 +7,7 @@ logging:
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:./jx3data/jx3.db
+    url: jdbc:h2:~/Jx3_Bot
     username: sa
     password: 123456
   h2:
@@ -17,9 +17,9 @@ simbot:
   core:
     # 扫描 simbot-bots目录下的所有 .bot 文件。
     bot-resource-type: RESOURCE_FIRST
-  component:
-    mirai:
-      device-info-file: file:./device-info/device.json
+#  component:
+#    mirai:
+#      device-info-file: file:./device-info/device.json
 jx3sp:
   account: 1062589920@qq.com
   password: lyh750802
@@ -27,3 +27,5 @@ jx3sp:
 #password=nimasile666666
 #  code=2468158366
 #  password=aaa111111
+#  code=3344934281
+# password=lyh750802

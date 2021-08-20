@@ -39,6 +39,8 @@ public class GroupListener {
     @Autowired
     private QueryHoles queryHoles;
     @Autowired
+    private QueryNews queryNews;
+    @Autowired
     private CheckServerStatus  checkServerStatus;
     private final CatCodeUtil catUtil = CatCodeUtil.INSTANCE;
     @Depend
@@ -94,6 +96,12 @@ public class GroupListener {
     @Filter(value = "公告",trim = true,matchType = MatchType.EQUALS)
     public void groupQueryAnnounce(GroupMsg groupMsg, Sender sender){
         sender.sendGroupMsg(groupMsg, announce.getAnnounce());
+    }
+
+    @OnGroup
+    @Filter(value = "资讯",trim = true,matchType = MatchType.EQUALS)
+    public void groupQueryNes(GroupMsg groupMsg, Sender sender){
+        sender.sendGroupMsg(groupMsg, queryNews.getNews());
     }
 
     @OnGroup

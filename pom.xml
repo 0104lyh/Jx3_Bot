@@ -11,7 +11,7 @@
 
     <groupId>com.lin</groupId>
     <artifactId>Jx3_Bot</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>Jx3_Bot</name>
     <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>

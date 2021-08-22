@@ -9,6 +9,7 @@ import com.lin.jx3_bot.service.*;
 import love.forte.common.ioc.annotation.Depend;
 import love.forte.simbot.annotation.Filter;
 import love.forte.simbot.annotation.FilterValue;
+import love.forte.simbot.annotation.Filters;
 import love.forte.simbot.annotation.OnGroup;
 import love.forte.simbot.api.message.MessageContent;
 import love.forte.simbot.api.message.MessageContentBuilder;
@@ -16,6 +17,7 @@ import love.forte.simbot.api.message.MessageContentBuilderFactory;
 import love.forte.simbot.api.message.events.GroupMsg;
 import love.forte.simbot.api.sender.Sender;
 import love.forte.simbot.filter.MatchType;
+import love.forte.simbot.filter.MostMatchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -54,6 +56,10 @@ public class GroupListener {
     private GroupSetServer groupSetServer;
     @Autowired
     private ServerMapper serverMapper;
+    @Autowired
+    private FindCoserPicture findCoserPicture;
+    @Autowired
+    private QueryDH queryDH;
     private final CatCodeUtil catUtil = CatCodeUtil.INSTANCE;
     @Depend
     private MessageContentBuilderFactory builderFactory;
@@ -149,6 +155,22 @@ public class GroupListener {
     public void groupGetHoles(GroupMsg groupMsg, Sender sender, @FilterValue("name") String name){
         sender.sendGroupMsg(groupMsg, queryHoles.getHoles(name));
     }
+
+    @OnGroup
+    @Filter(value = "蹲号 {{exterior}} {{baname}}",trim = true,matchType = MatchType.REGEX_MATCHES)
+//    @Filter(value = "蹲号 {{exterior}}",trim = true,matchType = MatchType.REGEX_MATCHES)
+    public void groupGetDHMessage(GroupMsg groupMsg, Sender sender,@FilterValue("exterior") String exterior, @FilterValue("baname") String baname){
+        sender.sendGroupMsg(groupMsg, queryDH.getTieBa(exterior,baname));
+    }
+
+    @OnGroup
+    @Filter(value = "蹲号 {{exterior}}",trim = true,matchType = MatchType.REGEX_MATCHES)
+    public void groupGetDHMessageNoBaname(GroupMsg groupMsg, Sender sender,@FilterValue("exterior") String exterior){
+        String[] text = groupMsg.getText().split(" ");
+        if(text.length==2){
+            sender.sendGroupMsg(groupMsg, queryDH.getTieBaWithoutBaname(exterior));
+        }
+    }
     /**
      * 发送瑟图及其衍生功能，通过随机色图api
      * 从消息构造器改为使用catCode工具来构造图片消息。降低复杂度
@@ -180,6 +202,18 @@ public class GroupListener {
         }else{
             String targetImage = catUtil.toCat("image",true,"url="+image);
             sender.sendGroupMsg(groupMsg,targetImage);
+        }
+    }
+
+    @OnGroup
+    @Filter(value = "coser",trim = true,matchType = MatchType.EQUALS)
+    public void randomCoser(GroupMsg groupMsg, Sender sender){
+        String coser =  findCoserPicture.getCoser();
+        if(!coser.equals("获取失败")){
+            String image = catUtil.toCat("image",true,"url="+coser);
+            sender.sendGroupMsg(groupMsg, image);
+        }else {
+            sender.sendGroupMsg(groupMsg,"获取失败");
         }
     }
 }

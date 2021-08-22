@@ -21,11 +21,6 @@ simbot:
 #    mirai:
 #      device-info-file: file:./device-info/device.json
 jx3sp:
-  account: 1062589920@qq.com
-  password: lyh750802
-#code=744302716
-#password=nimasile666666
-#  code=2468158366
-#  password=aaa111111
-#  code=3344934281
-# password=lyh750802
+  account: jx3sp账号
+  password: 密码
+

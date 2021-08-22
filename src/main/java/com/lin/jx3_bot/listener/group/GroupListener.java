@@ -112,9 +112,15 @@ public class GroupListener {
     @OnGroup
     @Filter(value = "花价 {{flower}}",trim = true,matchType = MatchType.REGEX_MATCHES)
     public void groupFlowerQuery(GroupMsg groupMsg, Sender sender, @FilterValue("flower") String flower){
-        //默认双梦
-        String server="梦江南";
-        sender.sendGroupMsg(groupMsg, queryFlowerPrice.getFlowerPrice(flower,server));
+        GroupServerInfo info = serverMapper.getServerInfo(Integer.valueOf(groupMsg.getGroupInfo().getGroupCode()));
+        if(info==null){
+            String server = "梦江南";
+            sender.sendGroupMsg(groupMsg, queryFlowerPrice.getFlowerPrice(flower,server)+"\n"+"-----------------------------\n"
+                    +"该群没有绑定服务器，默认返回梦江南\n"+"请使用命令：设置服务器 {}绑定服务器");
+        }else{
+            String server = info.getServer();
+            sender.sendGroupMsg(groupMsg, queryFlowerPrice.getFlowerPrice(flower,server));
+        }
     }
     @OnGroup
     @Filter(value = "{{server}} 花价 {{flower}}",trim = true,matchType = MatchType.REGEX_MATCHES)
@@ -170,6 +176,7 @@ public class GroupListener {
         if(text.length==2){
             sender.sendGroupMsg(groupMsg, queryDH.getTieBaWithoutBaname(exterior));
         }
+
     }
     /**
      * 发送瑟图及其衍生功能，通过随机色图api

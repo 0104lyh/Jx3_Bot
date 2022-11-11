@@ -3,7 +3,7 @@
 ## 介绍
 本项目是根据[simbot](https://github.com/ForteScarlet/simpler-robot) 制作的剑网三Q群机器人
 部分接口数据由[Jx3Api](https://jx3api.com/#/?id=explain )提供支持
-目前项目正处于开发阶段
+目前项目已经停止维护，有兴趣的朋友可以作为参考
 
 ## 参考
 > https://gitee.com/yqingfeng/jx3robot
